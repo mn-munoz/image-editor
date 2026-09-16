@@ -57,6 +57,8 @@ class ImageEditor {
             const outputFile = args[1];
             const filter = args[2];
 
+
+
             if (filter === "grayscale" || filter === "greyscale") {
             } else if (filter === "invert") {
             } else if (filter === "emboss") {
@@ -77,6 +79,10 @@ class ImageEditor {
 
     private usage(): void {
         console.log("USAGE: java ImageEditor <in-file> <out-file> <grayscale|invert|emboss|motionblur> {motion-blur-length}")
+    }
+
+    private read(filePath: string): Image {
+        return new Image(0, 0); // Placeholder implementation
     }
 }
 
