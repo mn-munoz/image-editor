@@ -118,7 +118,7 @@ class ImageEditor {
     }
 
     private usage(): void {
-        console.log("USAGE: java ImageEditor <in-file> <out-file> <grayscale|invert|emboss|motionblur> {motion-blur-length}")
+        console.log("USAGE: npm run start <in-file> <out-file> <grayscale|invert|emboss|motionblur> {motion-blur-length}")
     }
 
     private grayscale(image: Image): void {
@@ -236,10 +236,12 @@ class ImageEditor {
         const lines: string[] = ["P3", `${width} ${height}`, "255"];
 
         for (let y = 0; y < height; y++) {
+            const rowValues: number[] = [];
             for (let x = 0; x < width; x++) {
                 const { red, green, blue } = image.getPixel(x, y);
-                lines.push(`${red} ${green} ${blue}`);
+                rowValues.push(red, green, blue);
             }
+            lines.push(rowValues.join(" "));
         }
 
         writeFileSync(filePath, lines.join("\n") + "\n", 'utf-8');
@@ -248,6 +250,7 @@ class ImageEditor {
 
 function main(): void {
     const args: string[] = process.argv.slice(2);
+
     const imageEditor = new ImageEditor();
     imageEditor.run(args);
 }
